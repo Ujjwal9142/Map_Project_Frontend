@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import ReactTooltip from "react-tooltip";
+import "./App.css";
+import MapChart from "./MapChart";
 
 function App() {
+  const [content, setContent] = useState(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="main__header">
+        <h1>Worldwide Network Availability & Data Usage</h1>
+      </div>
+      <MapChart setTooltipContent={setContent} />
+      {content && (
+        <ReactTooltip>
+          <div className="country__details">
+            <p className="country__name">{`Country: ${content?.country}`}</p>
+            <p className="city__name">{`City: ${content?.city}`}</p>
+            <p className="country__networks">{`Available Networks: ${content?.networks_available}`}</p>
+            <p className="country__datausage">{`Data Usage: ${content?.data_usage} Million GB`}</p>
+          </div>
+        </ReactTooltip>
+      )}
     </div>
   );
 }
